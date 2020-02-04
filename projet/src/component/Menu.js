@@ -8,9 +8,9 @@ class Menu extends Component{
     render(){
         return(
         <nav>
-            <div class="nav-wrapper">
+            <div className="nav-wrapper teal darken-1">
               <img src={Logo} width="65" height="65"/>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to={'/'}>Home</Link></li>
               </ul>
             </div>
