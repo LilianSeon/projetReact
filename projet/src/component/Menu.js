@@ -12,6 +12,7 @@ class Menu extends Component{
               <img src={Logo} width="65" height="65"/>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to={'/'}>Home</Link></li>
+                <li><Link to={'/connexion'}>Connexion</Link></li>
               </ul>
             </div>
         </nav>
