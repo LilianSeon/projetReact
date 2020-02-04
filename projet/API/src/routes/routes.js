@@ -57,6 +57,7 @@ router.put('/comments/:id', CommentController.update);
 // Film
 
 router.post('/film', FilmController.create);
+router.get('/film', FilmController.list);
 
 
 export default router;

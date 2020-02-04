@@ -50,11 +50,11 @@ class FilmController{
             // .findById(id)
             // .findOne({email: 'email@email.fr'})
             
-            let articles = await Article.find().populate('userId');
+            let film = await Film.find().populate('userId');
 
             body = {
-                articles, 
-                'message': 'Articles list'
+                film, 
+                'message': 'Film list'
             };
         } catch (error) {
             status = 500;

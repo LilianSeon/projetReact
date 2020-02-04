@@ -1,4 +1,5 @@
-.search{
-  margin-left: auto;
-  margin-right: auto;
+.trunc{
+  height: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
