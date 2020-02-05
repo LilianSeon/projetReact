@@ -74,13 +74,11 @@ class FilmController{
             // .findOne({email: 'email@email.fr'})
             
             let id = req.params.id;
-            let user = await User.findById(id);
-            let article = await Article.find({userId: id});
+            let film = await Film.findById(id);
 
             body = {
-                user,
-                article, 
-                'message': 'Articles details'
+                film, 
+                'message': 'Film details'
             };
         } catch (error) {
             status = 500;
@@ -121,11 +119,11 @@ class FilmController{
             // .findById(id)
             // .findOne({email: 'email@email.fr'})
 
-            let article = await Article.findByIdAndUpdate(req.params.id, req.body, {new: true});
+            let film = await Film.findByIdAndUpdate(req.params.id, req.body, {new: true});
 
             body = {
-                article,
-                'message': 'Users updated'
+                film,
+                'message': 'Film updated'
             };
         } catch (error) {
             status = 500;
