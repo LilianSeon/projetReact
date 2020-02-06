@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
+import { Link } from 'react-router-dom';
 
 class Connexion extends Component{
 
@@ -12,23 +13,24 @@ class Connexion extends Component{
                 <div className="row m3">
                     <div className="col s3"></div>
                     <form className="col s6 z-depth-3" style={{paddingLeft:'45px'}}>
+                    <h4 className="center" style={{paddingRight:'45px'}}>Connexion</h4>
                     <div className="row">
                         <div className="input-field col s10">
-                        <i className="material-icons prefix">account_circle</i>
-                        <input id="icon_prefix" type="text" className="validate"/>
-                        <label htmlFor="icon_prefix">Email</label>
+                            <i className="material-icons prefix">account_circle</i>
+                            <input id="icon_prefix" type="email" className="validate"/>
+                            <label htmlFor="icon_prefix">Email</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s10">
-                        <i className="material-icons prefix">phone</i>
-                        <input id="icon_telephone" type="tel" className="validate"/>
-                        <label htmlFor="icon_telephone">Mot de passe</label>
+                            <i className="material-icons prefix">lock</i>
+                            <input id="icon_telephone" type="password" className="validate"/>
+                            <label htmlFor="icon_telephone">Mot de passe</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col s6">
-                            <a className="waves-effect waves-light btn lime"><i className="material-icons left">add_box</i>Inscription</a>
+                            <Link className="waves-effect waves-light btn lime" to={'/inscription'}><i className="material-icons left">add_box</i>Inscription</Link>
                         </div>
                         <div className="col s6">
                             <a className="waves-effect waves-light btn blue"><i className="material-icons left">check</i>Connexion</a>
@@ -37,7 +39,6 @@ class Connexion extends Component{
                     </form>
                     <div className="col s3"></div>
                 </div>
-
             </div>
         )
     }

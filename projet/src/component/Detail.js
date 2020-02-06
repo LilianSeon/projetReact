@@ -48,7 +48,7 @@ class Detail extends Component{
                     <Menu/>
                         <div className="container">
                         <br/>
-                        <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">arrow_left</i>Retour</Link>
+                        <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
                             <div className="row">
                                 <div className="col s6">
                                     <br/>
