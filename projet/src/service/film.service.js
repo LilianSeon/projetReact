@@ -52,6 +52,19 @@ class FilmService{
         return call;
     }
 
+    static async delete(id){
+        let init = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                //"Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+        let call = await fetch(`${baseUrl}/film/${id}`, init);
+        return call;
+    }
+
+
 }
 
 export default FilmService

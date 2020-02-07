@@ -97,10 +97,10 @@ class FilmController{
             // .findById(id)
             // .findOne({email: 'email@email.fr'})
             
-            await Article.remove({_id: req.params.id});
+            await Film.remove({_id: req.params.id});
 
             body = {
-                'message': 'Article Deleted'
+                'message': 'Film Deleted'
             };
         } catch (error) {
             status = 500;

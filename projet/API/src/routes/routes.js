@@ -60,6 +60,7 @@ router.post('/film', FilmController.create);
 router.get('/film', FilmController.list);
 router.get('/film/:id', FilmController.details);
 router.put('/film/:id', FilmController.update);
+router.delete('/film/:id', FilmController.delete);
 
 
 export default router;

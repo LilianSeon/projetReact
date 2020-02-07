@@ -3,13 +3,15 @@ import '../App.css'
 import { Link } from 'react-router-dom';
 import Menu from '../component/Menu';
 import FilmService from '../service/film.service';
+import Materialize from "materialize-css";
 
 class Home extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            film: []
+            film: [],
+            auto: {}
         };
       }
 
@@ -17,10 +19,24 @@ class Home extends Component{
         let response = await FilmService.list(); // Va chercher les données de la liste des films
         if(response.ok){
             let data = await response.json();
-            this.setState({film: data.film})
+            this.setState({
+                film: data.film,
+                auto: data.film
+            })
+            var dataFilm = {}; // Remplir un obj pour l'autocomplete
+            for (var i = 0; i < this.state.film.length; i++) {
+                dataFilm[this.state.film[i].title] = this.state.film[i].img;
+            }
+            console.log(dataFilm)
         }else{
             console.log(response.error);
         }
+        
+        // Autocomplete options
+        let elems = document.querySelectorAll('.autocomplete');
+        Materialize.Autocomplete.init(elems, {
+            data: dataFilm
+        });
     }
 
     search() { // Recherche de film via l'input text

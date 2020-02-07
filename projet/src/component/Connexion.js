@@ -33,7 +33,7 @@ class Connexion extends Component{
                             <Link className="waves-effect waves-light btn lime" to={'/inscription'}><i className="material-icons left">add_box</i>Inscription</Link>
                         </div>
                         <div className="col s6">
-                            <a className="waves-effect waves-light btn blue"><i className="material-icons left">check</i>Connexion</a>
+                            <button className="waves-effect waves-light btn blue"><i className="material-icons left">check</i>Connexion</button>
                         </div>
                     </div>
                     </form>

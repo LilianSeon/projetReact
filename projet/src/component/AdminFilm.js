@@ -3,6 +3,7 @@ import '../App.css'
 import { Link } from 'react-router-dom';
 import Menu from '../component/Menu';
 import FilmService from '../service/film.service';
+import Materialize from "materialize-css";
 
 class AdminFilm extends Component{
 
@@ -11,6 +12,8 @@ class AdminFilm extends Component{
         this.state = {
             film: []
         };
+        this.supprimer = this.supprimer.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     async componentDidMount(){
@@ -40,7 +43,25 @@ class AdminFilm extends Component{
         }
     }
 
+    supprimer(id){
+        document.getElementById('delete').value = id;
+        console.log(id);
+    }
+
+    async delete(){
+        let response = await FilmService.delete(document.getElementById('delete').value); // Supprime un film
+        if(response.ok){
+            console.log("deleted");
+            this.componentDidMount();
+        }else{
+            console.log(response.error);
+        }
+    }
+
     render(){
+        // Offre la modal de confirmation de suprression
+        let elems = document.querySelectorAll('.modal');
+        Materialize.Modal.init(elems, {});
         return(
             <div>
                 <Menu/>
@@ -58,7 +79,7 @@ class AdminFilm extends Component{
                         </div>
                     </div>
                     <div className="col s3">
-                        <Link to={"/ajoutfilm"} class="waves-effect waves-light btn-small blue" style={{marginTop: '30px', marginLeft: '20px'}}><i class="material-icons left">add</i>Ajouter un film</Link>
+                        <Link to={"/ajoutfilm"} className="waves-effect waves-light btn-small blue" style={{marginTop: '30px', marginLeft: '20px'}}><i className="material-icons left">add</i>Ajouter un film</Link>
                     </div>
                 </div>
                 <div className="row" id="myUL">
@@ -82,8 +103,8 @@ class AdminFilm extends Component{
                                         <td>{film.date}</td>
                                         <td>{film.note}</td>
                                         <td>
-                                            <a class="waves-effect waves-light btn-small lime" style={{marginBottom: '15px'}}><i class="material-icons left">edit</i>Modifier</a><br/>
-                                            <a class="waves-effect waves-light btn-small red"><i class="material-icons left">delete</i>Supprimer</a>
+                                            <button className="waves-effect waves-light btn-small lime" style={{marginBottom: '15px'}}><i className="material-icons left">edit</i>Modifier</button><br/>
+                                            <button className="waves-effect waves-light btn-small red modal-trigger" data-target="modal1" onClick={() => this.supprimer(film._id)}><i className="material-icons left">delete</i>Supprimer</button>
                                         </td>
                                     </tr> 
                                 )    
@@ -91,6 +112,22 @@ class AdminFilm extends Component{
                         }
                         </tbody>
                     </table>
+                    <div id="modal1" className="modal">
+                        <div className="modal-content">
+                            <h4>Supprimer</h4>
+                            <p>Voulez-vous vraimlent supprimer cette élément ?</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button href="#!" className="modal-close btn waves-effect waves-light lime" type="submit" name="cancel"style={{marginRight: "15px"}}>
+                                <i className="material-icons right">cancel</i>
+                                    Annuler
+                            </button>
+                            <button href="#!" id="delete" className="modal-close btn waves-effect waves-light red" name="delete" onClick={() => this.delete()}>
+                            <i className="material-icons right">check</i>
+                                Supprimer
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
-import { Link } from 'react-router-dom';
 
 class Inscription extends Component{
 
@@ -33,7 +32,7 @@ class Inscription extends Component{
                             
                         </div>
                         <div className="col s6">
-                            <a className="waves-effect waves-light btn green"><i className="material-icons left">check</i>Valider</a>
+                            <button className="waves-effect waves-light btn green"><i className="material-icons left">check</i>Valider</button>
                         </div>
                     </div>
                     </form>
