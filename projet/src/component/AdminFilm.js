@@ -43,9 +43,8 @@ class AdminFilm extends Component{
         }
     }
 
-    supprimer(id){
+    supprimer(id){ // Change la valeur du boutton supprimer du modal pour supprimer le bon film
         document.getElementById('delete').value = id;
-        console.log(id);
     }
 
     async delete(){

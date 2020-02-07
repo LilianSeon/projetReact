@@ -25,7 +25,7 @@ class AjoutFilm extends Component{
         var context = this;
     
         var elems = document.querySelectorAll(".dateset");
-        Materialize.Datepicker.init(elems, {
+        Materialize.Datepicker.init(elems, { // Mise en place du date picker
           defaultDate: new Date(),
           format: this.state.format,
           container: "body",
@@ -49,7 +49,6 @@ class AjoutFilm extends Component{
 
 
     render(){
-        console.log(this.state);
         return(
             <div>
                 <Menu/>
