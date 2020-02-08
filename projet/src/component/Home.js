@@ -77,7 +77,7 @@ class Home extends Component{
                 {
                     this.state.film.map((film) => {
                         return(
-                            <div className="col s12 m4 hit" key={film._id}>
+                            <div className="col s12 m6 l4 xl3 hit" key={film._id}>
                                 <div className="card hoverable">
                                 <div className="card-image">
                                     <img src={film.img} alt="" title={film.title}/>
