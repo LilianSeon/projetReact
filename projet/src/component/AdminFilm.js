@@ -250,8 +250,8 @@ class AdminFilm extends Component{
                                 </div>
                                 <div className="input-field col s5">
                                     <i className="material-icons prefix">mode_edit</i>
-                                    <textarea id="icon_prefix2" className="materialize-textarea" onChange={this.handleUpdateForm} defaultValue={this.state.updateFilm.content || ''}></textarea>
-                                    <label id="contentlabel" htmlFor="icon_prefix2">Synopsis</label>
+                                    <textarea id="content" className="materialize-textarea" onChange={this.handleUpdateForm} defaultValue={this.state.updateFilm.content || ''}></textarea>
+                                    <label id="contentlabel" htmlFor="content">Synopsis</label>
                                 </div>    
                             </div>
                         </div>
