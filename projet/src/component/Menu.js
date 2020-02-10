@@ -13,6 +13,7 @@ class Menu extends Component{
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li title="Home"><Link to={'/'}><i className="material-icons">home</i></Link></li>
                 <li title="Connexion"><Link to={'/connexion'}><i className="material-icons">person</i></Link></li>
+                <li title="Admin"><Link to={'/adminfilm'}><i className="material-icons">settings</i></Link></li>
               </ul>
             </div>
         </nav>

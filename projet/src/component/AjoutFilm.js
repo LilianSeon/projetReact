@@ -31,7 +31,6 @@ class AjoutFilm extends Component{
           container: "body",
           onSelect: function(date) {
             context.setState({ date: date.toLocaleDateString('fr-FR') });
-            console.log(date); // Selected date is logged
           },
           autoClose: true
         });
