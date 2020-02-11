@@ -22,7 +22,10 @@ class AdminFilm extends Component{
             duree: "",
             content: "",
             note: "",
-            img: ""
+            img: "",
+            id: "",
+            isAuth: "",
+            user_role: ""
         };
         this.supprimer = this.supprimer.bind(this);
         this.delete = this.delete.bind(this);
@@ -143,7 +146,7 @@ class AdminFilm extends Component{
         
         return(
             <div>
-                <Menu/>
+                <Menu isAdmin={this.state.user_role} id={this.state.id} isAuth={this.state.isAuth}/>
                 <div className="row">
                     <div className="col s3">
                         <h4>Côté Admin</h4>
@@ -195,7 +198,7 @@ class AdminFilm extends Component{
                     <div id="modal1" className="modal">
                         <div className="modal-content">
                             <h4>Supprimer</h4>
-                            <p>Voulez-vous vraimlent supprimer cette élément ?</p>
+                            <p>Voulez-vous vraiment supprimer cette élément ?</p>
                         </div>
                         <div className="modal-footer">
                             <button href="#!" className="modal-close btn waves-effect waves-light lime" type="submit" name="cancel" style={{marginRight: "15px"}}>

@@ -1,15 +1,87 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import UserService from '../service/user.service';
 
 class Connexion extends Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+            user_role: 0,
+            bddUser: {},
+            id: '',
+            isAuth: false
+        };
+    }
+
+    getEmail(e){ // Récupère l'email de l'utilisateur pour le mettre dans le state
+        this.setState({
+            email: e.target.value
+        });
+    }
+
+    getPassword(e){ // Récupère le password de l'utilisateur pour le mettre dans le state
+        this.setState({
+            password: e.target.value
+        });
+    }
+
+    async checkUser(e){ // Envoie de la requête pour ajouter un utilisateur en base de donnée
+        e.preventDefault();
+        let response = await UserService.list(); // Ajoute un user
+            if(response.ok){
+                let data = await response.json();
+                this.setState({bddUser: data});
+                this.state.bddUser.users.map((user) => {
+                    if(user.email === this.state.email){
+                        console.log("email trouvé");
+                        if(user.password === this.state.password){
+                            console.log("Connexion");
+                            this.setState({
+                                ...this.state,
+                                id: user._id,
+                                user_role: user.user_role,
+                                isAuth: true
+                            });
+                            localStorage.setItem('idUser', JSON.stringify(user._id));
+                            localStorage.setItem('user_role', JSON.stringify(user.user_role));
+                            localStorage.setItem('isAuth', JSON.stringify(true));
+                            return true;
+                        }else{
+                            console.log("Mdp incorrect")
+                            return false;
+                        }
+                    }else{
+                        console.log("Utilisateur non inscrit")
+                        return false;
+                    }
+                })
+            }else{
+                console.log(response.error);
+            }
+    }
+
+    redirect(){
+        if(this.state.isAuth){
+            return(
+                <Redirect to={{
+                        pathname: '/',
+                        state: { id: this.state.id, isAuth: true, user_role: this.state.user_role }
+                    }}
+                />
+            )
+        }
+    }
 
     render(){
         return(
             <div>
                 <Menu/>
-                <br/> <br/> <br/> <br/>
-
+                {this.redirect()}
+                <br/> <br/> <br/>
                 <div className="row m3">
                     <div className="col s3"></div>
                     <form className="col s6 z-depth-3" style={{paddingLeft:'45px'}}>
@@ -17,14 +89,14 @@ class Connexion extends Component{
                     <div className="row">
                         <div className="input-field col s10">
                             <i className="material-icons prefix">account_circle</i>
-                            <input id="icon_prefix" type="email" className="validate"/>
+                            <input id="icon_prefix" type="email" className="validate" onChange={(e) => {this.getEmail(e)}}/>
                             <label htmlFor="icon_prefix">Email</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s10">
                             <i className="material-icons prefix">lock</i>
-                            <input id="icon_telephone" type="password" className="validate"/>
+                            <input id="icon_telephone" type="password" className="validate" onChange={(e) => {this.getPassword(e)}}/>
                             <label htmlFor="icon_telephone">Mot de passe</label>
                         </div>
                     </div>
@@ -33,7 +105,7 @@ class Connexion extends Component{
                             <Link className="waves-effect waves-light btn lime" to={'/inscription'}><i className="material-icons left">add_box</i>Inscription</Link>
                         </div>
                         <div className="col s6">
-                            <button className="waves-effect waves-light btn blue"><i className="material-icons left">check</i>Connexion</button>
+                            <button className="waves-effect waves-light btn blue" onClick={(e) => {this.checkUser(e)}}><i className="material-icons left">check</i>Connexion</button>
                         </div>
                     </div>
                     </form>

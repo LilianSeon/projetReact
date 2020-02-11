@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
 import UserService from '../service/user.service';
+import { Link } from 'react-router-dom';
 
 class Inscription extends Component{
 
@@ -9,7 +10,7 @@ class Inscription extends Component{
         this.state = {
             email: "",
             password: "",
-            role: 0
+            user_role: 0
         };
       }
 
@@ -28,20 +29,20 @@ class Inscription extends Component{
     role(e){ // Récupère le role de l'utilisateur pour le mettre dans le state
         if(e.target.checked){ // Admin
             this.setState({
-                role: 1
+                user_role: 1
             });
         }else{ // Simple user
             this.setState({
-                role: 0
+                user_role: 0
             });
         }
     }
 
-    async addUser(e){ // Envoie de la requête pour ajouter un utilisateur
+    async addUser(e){ // Envoie de la requête pour ajouter un utilisateur en base de donnée
         e.preventDefault();
         let response = await UserService.create(this.state); // Ajoute un user
             if(response.ok){
-                console.log("OK")
+                window.location.replace("/connexion");
             }else{
                 console.log(response.error);
             }
@@ -51,8 +52,8 @@ class Inscription extends Component{
         return(
             <div>
                 <Menu/>
-                <br/> <br/> <br/> <br/>
-
+                <br/>
+                <Link to={'/connexion'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
                 <div className="row m3">
                     <div className="col s3"></div>
                     <form className="col s6 z-depth-3" style={{paddingLeft:'45px'}}>
