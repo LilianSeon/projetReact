@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../img/logo.png';
+import Logo from '../img/logo2.png';
 import Materialize from "materialize-css";
 
 class Menu extends Component{
@@ -14,9 +14,14 @@ class Menu extends Component{
     };
   }
 
+  componentWillMount(){
+    let elems = document.querySelectorAll('.tooltipped');
+    Materialize.Tooltip.init(elems,{});
+  }
+
   componentDidMount(){
     let elems = document.querySelectorAll('.tooltipped');
-    Materialize.Tooltip.init(elems, {});
+    Materialize.Tooltip.init(elems,{});
   }
 
   setting(){
