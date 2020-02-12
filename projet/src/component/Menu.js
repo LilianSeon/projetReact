@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../img/logo.png'
+import Logo from '../img/logo.png';
+import Materialize from "materialize-css";
 
 class Menu extends Component{
 
@@ -14,31 +15,42 @@ class Menu extends Component{
   }
 
   componentDidMount(){
-
-    if (typeof this.props.isAdmin !== "undefined") {
-      this.setState({
-        ...this.state,
-        id: this.props.id,
-        isAuth: this.props.isAuth,
-        user_role: this.props.isAdmin
-      })
-    }
     
   }
 
   setting(){
-    if (this.props.isAdmin) {
-      console.log(this.state)
+    if (localStorage.user_role === "1") {
+
+      if(localStorage.toast === "true"){
+        Materialize.toast({html: "<span>Vous êtes déconnecté en tant qu'Admin!</span>"});
+        localStorage.setItem('toast', JSON.stringify(false));
+      }
+
       return(
-        <li title="Admin"><Link to={{
-          pathname:'/adminFilm',
-          state:{
-              id: this.state.id,
-              isAuth: this.state.isAuth,
-              user_role: this.state.user_role
-          }
-        }}>
-        <i className="material-icons">settings</i></Link></li>
+        <li title="Admin"><Link to='/adminFilm'>
+          <i className="material-icons">build</i></Link>
+        </li>
+      )
+    }
+  }
+
+  disconnect(){
+    localStorage.setItem('idUser', "");
+    localStorage.setItem('user_role', "");
+    localStorage.setItem('isAuth', "false");
+
+    if(localStorage.isAuth === "false"){
+      Materialize.toast({html: '<span>Vous êtes déconnecté !</span>'})
+    }
+    localStorage.setItem('isAuth', "");
+  }
+
+  out(){
+    if (localStorage.isAuth === "true") {
+      return(
+        <li title="Déconnecter"><a href="#">
+          <i className="material-icons" onClick={() => {this.disconnect()}}>exit_to_app</i></a>
+        </li>
       )
     }
   }
@@ -53,6 +65,7 @@ class Menu extends Component{
               <li title="Home"><Link to={'/'}><i className="material-icons">home</i></Link></li>
               <li title="Connexion"><Link to={'/connexion'}><i className="material-icons">person</i></Link></li>
               {this.setting()}
+              {this.out()}
             </ul>
           </div>
       </nav>

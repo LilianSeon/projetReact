@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Menu from '../component/Menu';
 import { Link, Redirect } from 'react-router-dom';
 import UserService from '../service/user.service';
+import Materialize from "materialize-css";
 
 class Connexion extends Component{
 
@@ -49,6 +50,12 @@ class Connexion extends Component{
                             localStorage.setItem('idUser', JSON.stringify(user._id));
                             localStorage.setItem('user_role', JSON.stringify(user.user_role));
                             localStorage.setItem('isAuth', JSON.stringify(true));
+                            localStorage.setItem('toast', JSON.stringify(true));
+
+                            if(localStorage.user_role === "0"){
+                                Materialize.toast({html: '<span>Vous êtes connecté !</span>'})
+                            }
+
                             return true;
                         }else{
                             console.log("Mdp incorrect")
@@ -67,11 +74,7 @@ class Connexion extends Component{
     redirect(){
         if(this.state.isAuth){
             return(
-                <Redirect to={{
-                        pathname: '/',
-                        state: { id: this.state.id, isAuth: true, user_role: this.state.user_role }
-                    }}
-                />
+                <Redirect to={'/'}/>
             )
         }
     }

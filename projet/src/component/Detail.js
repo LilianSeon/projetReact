@@ -26,13 +26,6 @@ class Detail extends Component{
         }else{
             console.log(response.error);
         }
-        console.log(this.props.location.state);
-        this.setState({
-            ...this.state,
-            id: this.props.location.state.id,
-            isAuth: this.props.location.state.isAuth,
-            user_role: this.props.location.state.user_role
-        })
     }
 
     async changeRating( newRating, body) {
@@ -49,7 +42,7 @@ class Detail extends Component{
     }
 
     star(){
-        if(this.props.location.state.isAuth){
+        if(localStorage.isAuth === "true"){
             return(
                 <StarRatings
                     rating={this.state.film && this.state.film.note}
@@ -67,18 +60,10 @@ class Detail extends Component{
       render(){
           return(
               <div>
-                    <Menu isAdmin={this.state.user_role}/>
+                    <Menu/>
                         <div className="container">
                         <br/>
-                        <Link to={{
-                                    pathname:'/',
-                                    state:{
-                                        id: this.state.id,
-                                        isAuth: this.state.isAuth,
-                                        user_role: this.state.user_role
-                                    }
-                                }} 
-                                className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
+                        <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
                             <div className="row">
                                 <div className="col s6">
                                     <br/>

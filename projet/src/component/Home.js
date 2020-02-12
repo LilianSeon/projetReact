@@ -11,10 +11,7 @@ class Home extends Component{
         super(props);
         this.state = {
             film: [],
-            auto: {},
-            id: '',
-            user_role: 0,
-            isAuth: false
+            auto: {}
         };
       }
 
@@ -39,16 +36,6 @@ class Home extends Component{
         Materialize.Autocomplete.init(elems, {
             data: dataFilm
         });
-
-        if(typeof this.props.location.state !== 'undefined'){ // Retour false si premier connexion, si user connecter alors true
-            this.setState({
-                ...this.state,
-                id: this.props.location.state.id,
-                user_role: this.props.location.state.user_role,
-                isAuth: true
-            })
-        }
-        console.log(this.state);
     }
 
     search() { // Recherche de film via l'input text
@@ -71,7 +58,7 @@ class Home extends Component{
     render(){
         return(
             <div>
-                <Menu isAdmin={this.state.user_role} id={this.state.id} isAuth={this.state.isAuth}/>
+                <Menu/>
                 <div className="row">
                     <div className="col s3"></div>
                     <div className="col s6 search">
@@ -94,14 +81,7 @@ class Home extends Component{
                                 <div className="card-image">
                                     <img src={film.img} alt="" title={film.title}/>
                                     <span className="card-title title">{film.title}</span>
-                                    <Link to={{
-                                        pathname:'/detail/'+film._id,
-                                        state:{
-                                            id: this.state.id,
-                                            isAuth: this.state.isAuth,
-                                            user_role: this.state.user_role
-                                        }
-                                        }} className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></Link>
+                                    <Link to={'/detail/'+film._id} className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></Link>
                                 </div>
                                 <div className="card-content">
                                     <p className="trunc">{film.content}</p>
