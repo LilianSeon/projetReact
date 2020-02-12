@@ -126,6 +126,7 @@ class AdminFilm extends Component{
         let id = document.getElementById('update').value;
         let response = await FilmService.update(id, body); // update les données du film en fonction de l'id
         if(response.ok){
+            Materialize.toast({html: '<span>Film modifié : '+body.title+'</span>'})
             this.componentDidMount();
             
         }else{
