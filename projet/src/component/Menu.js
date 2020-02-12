@@ -15,7 +15,8 @@ class Menu extends Component{
   }
 
   componentDidMount(){
-    
+    let elems = document.querySelectorAll('.tooltipped');
+    Materialize.Tooltip.init(elems, {});
   }
 
   setting(){
@@ -27,7 +28,7 @@ class Menu extends Component{
       }
 
       return(
-        <li title="Admin"><Link to='/adminFilm'>
+        <li className="tooltipped" data-position="bottom" data-tooltip="Admin"><Link to='/adminFilm'>
           <i className="material-icons">build</i></Link>
         </li>
       )
@@ -48,7 +49,7 @@ class Menu extends Component{
   out(){
     if (localStorage.isAuth === "true") {
       return(
-        <li title="Déconnecter"><a href="#">
+        <li className="tooltipped" data-position="bottom" data-tooltip="Déconnexion"><a href="#">
           <i className="material-icons" onClick={() => {this.disconnect()}}>exit_to_app</i></a>
         </li>
       )
@@ -59,11 +60,11 @@ class Menu extends Component{
   render(){
       return(
       <nav>
-          <div className="nav-wrapper teal darken-1">
+          <div className="nav-wrapper teal darken-1 z-depth-1">
             <img src={Logo} width="65" height="64" alt="" className="left"/>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li title="Home"><Link to={'/'}><i className="material-icons">home</i></Link></li>
-              <li title="Connexion"><Link to={'/connexion'}><i className="material-icons">person</i></Link></li>
+              <li className="tooltipped" data-position="bottom" data-tooltip="Home"><Link to={'/'}><i className="material-icons">home</i></Link></li>
+              <li className="tooltipped" data-position="bottom" data-tooltip="Connexion"><Link to={'/connexion'}><i className="material-icons">person</i></Link></li>
               {this.setting()}
               {this.out()}
             </ul>

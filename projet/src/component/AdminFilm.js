@@ -146,7 +146,7 @@ class AdminFilm extends Component{
         
         return(
             <div>
-                <Menu isAdmin={this.state.user_role} id={this.state.id} isAuth={this.state.isAuth}/>
+                <Menu/>
                 <div className="row">
                     <div className="col s3">
                         <h4>Côté Admin</h4>
