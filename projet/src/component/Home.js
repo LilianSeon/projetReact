@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css'
 import { Link } from 'react-router-dom';
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import FilmService from '../service/film.service';
 import Materialize from "materialize-css";
 
@@ -29,6 +30,7 @@ class Home extends Component{
             }
         }else{
             console.log(response.error);
+            this.componentDidMount();
         }
         
         // Autocomplete options
@@ -92,6 +94,8 @@ class Home extends Component{
                     })
                 }
                 </div>
+                <br/>
+                <Footer/>
             </div>
         )
     }

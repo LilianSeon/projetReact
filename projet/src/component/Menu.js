@@ -12,12 +12,10 @@ class Menu extends Component{
         isAuth: '',
         user_role: ''
     };
-  }
-
-  componentWillMount(){
     let elems = document.querySelectorAll('.tooltipped');
     Materialize.Tooltip.init(elems,{});
   }
+
 
   componentDidMount(){
     let elems = document.querySelectorAll('.tooltipped');
@@ -54,8 +52,8 @@ class Menu extends Component{
   out(){
     if (localStorage.isAuth === "true") {
       return(
-        <li className="tooltipped" data-position="bottom" data-tooltip="Déconnexion"><a href="#">
-          <i className="material-icons" onClick={() => {this.disconnect()}}>exit_to_app</i></a>
+        <li className="tooltipped" data-position="bottom" data-tooltip="Déconnexion"><Link to="">
+          <i className="material-icons" onClick={() => {this.disconnect()}}>exit_to_app</i></Link>
         </li>
       )
     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css'
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import FilmService from '../service/film.service';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
@@ -88,6 +89,8 @@ class Detail extends Component{
                             </div>
                         </div>
                         <hr/>
+                        <br/>
+                        <Footer/>
               </div>
           )
       }

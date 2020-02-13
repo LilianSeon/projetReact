@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import UserService from '../service/user.service';
 import { Link } from 'react-router-dom';
 
@@ -91,6 +92,9 @@ class Inscription extends Component{
                     </form>
                     <div className="col s3"></div>
                 </div>
+                <br/>
+                <br/>
+                <Footer/>
             </div>
         )
     }

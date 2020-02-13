@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import '../App.css'
 import { Link } from 'react-router-dom';
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import FilmService from '../service/film.service';
+import UserService from '../service/user.service';
 import Materialize from "materialize-css";
 
 class AdminFilm extends Component{
@@ -11,6 +13,7 @@ class AdminFilm extends Component{
         super(props);
         this.state = {
             film: [],
+            users: [],
             updateFilm: {
                 title: '',
                 date: ''
@@ -41,6 +44,14 @@ class AdminFilm extends Component{
             console.log(response.error);
         }
 
+        let responseUser = await UserService.list(); // Liste les utilisateurs
+            if(responseUser.ok){
+                let data = await responseUser.json();
+                this.setState({users: data.users})
+            }else{
+                console.log(responseUser.error);
+            }
+
         var context = this;
     
         var elems = document.querySelectorAll(".dateset");
@@ -64,6 +75,9 @@ class AdminFilm extends Component{
         // Offre la modal de confirmation de suprression
         let elem = document.querySelectorAll('.modal');
         Materialize.Modal.init(elem, {});
+
+        //Tab
+        Materialize.Tabs.init(document.querySelectorAll('.tabs'), {});
     }
 
     search() { // Recherche de film via l'input text
@@ -85,6 +99,10 @@ class AdminFilm extends Component{
 
     supprimer(id){ // Change la valeur du boutton supprimer du modal pour supprimer le bon film
         document.getElementById('delete').value = id;
+    }
+
+    supprimerUser(id){ // Change la valeur du boutton supprimer du modal pour supprimer le bon utilisateur
+        document.getElementById('deleteUser').value = id;
     }
 
     async fillInput(id){
@@ -143,6 +161,15 @@ class AdminFilm extends Component{
         }
     }
 
+    async deleteUser(){
+        let response = await UserService.delete(document.getElementById('deleteUser').value); // Supprime un utilisateur
+        if(response.ok){
+            this.componentDidMount();
+        }else{
+            console.log(response.error);
+        }
+    }
+
     render(){
         
         return(
@@ -165,36 +192,77 @@ class AdminFilm extends Component{
                         <Link to={"/ajoutfilm"} className="waves-effect waves-light btn-small blue" style={{marginTop: '30px', marginLeft: '20px'}}><i className="material-icons left">add</i>Ajouter un film</Link>
                     </div>
                 </div>
-                <div className="row" id="myUL">
-                    <table className="highlight">
-                        <thead>
-                        <tr>
-                            <th>Affiche</th>
-                            <th>Titre</th>
-                            <th>Date</th>
-                            <th>Note</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            this.state.film.map((film) => {
-                                return(
-                                    <tr className="hit" key={film._id || ''}>
-                                        <td><img src={film.img || ''} alt="" width="80" height="110"/></td>
-                                        <td className="title">{film.title || ''}</td>
-                                        <td>{film.date || ''}</td>
-                                        <td>{film.note || ''}</td>
-                                        <td>
-                                            <button className="waves-effect waves-light btn-small lime modal-trigger" style={{marginBottom: '15px'}} data-target="modal2" onClick={() => this.fillInput(film._id).then(() => this.update(film._id))}><i className="material-icons left">edit</i>Modifier</button><br/>
-                                            <button className="waves-effect waves-light btn-small red modal-trigger" data-target="modal1" onClick={() => this.supprimer(film._id)}><i className="material-icons left">delete</i>Supprimer</button>
-                                        </td>
-                                    </tr> 
-                                )    
-                            })
-                        }
-                        </tbody>
-                    </table>
+                <div className="row">
+                    <div className="col s12">
+                        <ul className="tabs">
+                            <li className="tab col s3"><a className="active" href="#film">Liste des Films</a></li>
+                            <li className="tab col s3"><a href="#user">Les Utilisateurs</a></li>
+                        </ul>
+                    </div>
+                    <div id="film" className="col s12">
+                        <div className="row" id="myUL">
+                            <table className="highlight">
+                                <thead>
+                                    <tr>
+                                        <th>Affiche</th>
+                                        <th>Titre</th>
+                                        <th>Date</th>
+                                        <th>Note</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    this.state.film.map((film) => {
+                                        return(
+                                            <tr className="hit" key={film._id || ''}>
+                                                <td><img src={film.img || ''} alt="" width="80" height="110"/></td>
+                                                <td className="title">{film.title || ''}</td>
+                                                <td>{film.date || ''}</td>
+                                                <td>{film.note || ''}</td>
+                                                <td>
+                                                    <button className="waves-effect waves-light btn-small lime modal-trigger" style={{marginBottom: '15px'}} data-target="modal2" onClick={() => this.fillInput(film._id).then(() => this.update(film._id))}><i className="material-icons left">edit</i>Modifier</button><br/>
+                                                    <button className="waves-effect waves-light btn-small red modal-trigger" data-target="modal1" onClick={() => this.supprimer(film._id)}><i className="material-icons left">delete</i>Supprimer</button>
+                                                </td>
+                                            </tr> 
+                                        )    
+                                    })
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="user" className="col s12">
+                        <div className="row">
+                        <table className="highlight">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Rôle</th>
+                                    <th>Email</th>
+                                    <th>Mot de passe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.state.users.map((user) => {
+                                    return(
+                                        <tr key={user._id || ''}>
+                                            <td>{user._id || ''}</td>
+                                            <td>{(user.user_role) ? "Admin" : "Utilisateur"}</td>
+                                            <td>{user.email || ''}</td>
+                                            <td>{user.password || ''}</td>
+                                            <td><button className="waves-effect waves-light btn-small red modal-trigger" data-target="modal3" onClick={() => this.supprimerUser(user._id)}><i className="material-icons left">delete</i>Supprimer</button></td>
+                                        </tr>
+                                    )
+                                })
+                            }        
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
 
                     <div id="modal1" className="modal">
                         <div className="modal-content">
@@ -212,6 +280,7 @@ class AdminFilm extends Component{
                             </button>
                         </div>
                     </div>
+
                     <div id="modal2" className="modal bottom-sheet">
                         <div className="modal-content">
                             <div className="row">
@@ -264,8 +333,26 @@ class AdminFilm extends Component{
                             <button id="update" className="modal-close waves-effect waves-light btn" onClick={this.sendUpdate.bind(this)}><i className="material-icons left">check</i>Modifier</button>
                         </div>
                     </div>
+
+                    <div id="modal3" className="modal">
+                        <div className="modal-content">
+                            <h4>Supprimer</h4>
+                            <p>Voulez-vous vraiment supprimer cette utilisateur ?</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button href="#!" className="modal-close btn waves-effect waves-light lime" type="submit" name="cancel" style={{marginRight: "15px"}}>
+                                <i className="material-icons right">cancel</i>
+                                    Annuler
+                            </button>
+                            <button href="#!" id="deleteUser" className="modal-close btn waves-effect waves-light red" name="deleteUser" onClick={() => this.deleteUser()}>
+                            <i className="material-icons right">check</i>
+                                Supprimer
+                            </button>
+                        </div>
+                    </div>
+                    <br/>
+                    <Footer/>
                 </div>
-            </div>
         )
     }
 

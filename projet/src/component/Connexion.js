@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import { Link, Redirect } from 'react-router-dom';
 import UserService from '../service/user.service';
 import Materialize from "materialize-css";
@@ -32,13 +33,12 @@ class Connexion extends Component{
 
     async checkUser(e){ // Envoie de la requête pour ajouter un utilisateur en base de donnée
         e.preventDefault();
-        let response = await UserService.list(); // Ajoute un user
+        let response = await UserService.list(); // Retourne la liste de tous les users
             if(response.ok){
                 let data = await response.json();
                 this.setState({bddUser: data});
                 this.state.bddUser.users.map((user) => {
                     if(user.email === this.state.email){
-                        console.log("email trouvé");
                         if(user.password === this.state.password){
                             console.log("Connexion");
                             this.setState({
@@ -114,6 +114,9 @@ class Connexion extends Component{
                     </form>
                     <div className="col s3"></div>
                 </div>
+                <br/>
+                <br/>
+                <Footer/>
             </div>
         )
     }

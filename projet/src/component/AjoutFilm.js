@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Menu from '../component/Menu';
+import Footer from '../component/Footer';
 import { Link } from 'react-router-dom';
 import Materialize from "materialize-css";
 import FilmService from '../service/film.service';
@@ -122,6 +123,8 @@ class AjoutFilm extends Component{
                     </form>
                     <div className="col s2"></div>
                 </div>
+                <br/>
+                <Footer/>
             </div>
         )
     }
