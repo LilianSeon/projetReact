@@ -155,16 +155,21 @@ class Detail extends Component{
                         <div className="row">
                             <h5>Espace commentaire</h5>
                         </div>
-                        <div className="row">
-                            <div className="input-field col s10">
-                                <i className="material-icons prefix">mode_edit</i>
-                                <textarea id="commentaire" className="materialize-textarea" data-length="120" onChange={(e) =>{this.getNewComment(e)}}></textarea>
-                                <label htmlFor="commentaire">Commentaire ...</label>
-                            </div>
-                            <button className="btn waves-effect waves-light" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}>Envoyer
-                                <i className="material-icons right">send</i>
-                            </button>
-                        </div>
+                        {
+                            localStorage.isAuth ?
+                            
+                                <div className="row">
+                                    <div className="input-field col s10">
+                                        <i className="material-icons prefix">mode_edit</i>
+                                        <textarea id="commentaire" className="materialize-textarea" data-length="120" onChange={(e) =>{this.getNewComment(e)}}></textarea>
+                                        <label htmlFor="commentaire">Commentaire ...</label>
+                                    </div>
+                                    <button className="btn waves-effect waves-light" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}>Envoyer
+                                        <i className="material-icons right">send</i>
+                                    </button>
+                                </div>
+                             : null
+                        }
                         <div className="row">
                             <ul className="collection">
                                 {
