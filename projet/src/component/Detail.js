@@ -5,6 +5,9 @@ import Footer from '../component/Footer';
 import FilmService from '../service/film.service';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
+import Materialize from "materialize-css";
+import CommentService from '../service/comment.service';
+
 
 class Detail extends Component{
 
@@ -13,7 +16,9 @@ class Detail extends Component{
         this.state = {
             film: {
                 note: 0
-            }
+            },
+            newComment: '',
+            comments: []
         };
     }
 
@@ -27,6 +32,9 @@ class Detail extends Component{
         }else{
             console.log(response.error);
         }
+
+        Materialize.CharacterCounter.init(document.getElementById('commentaire'));
+        
     }
 
     async changeRating( newRating, body) {
@@ -55,6 +63,36 @@ class Detail extends Component{
                     starSpacing="4px" 
                 />
             )
+        }
+    }
+
+    getNewComment(e){
+        this.setState({
+            newComment: e.target.value
+        });
+    }
+
+    async sendComment(e){
+        e.preventDefault();
+        if(localStorage.isAuth === "true"){
+            let body = {
+                content: this.state.newComment,
+                date: new Date().toLocaleDateString('fr-Fr'),
+                filmId: this.state.film._id,
+                userId: JSON.parse(localStorage.idUser)
+            }
+            console.log(body)
+            let response = await CommentService.create(body); // Crée un commentaire
+            console.log(response);
+            if(response.ok){
+                let data = await response.json();
+                this.setState({comments: data.comments})
+            }else{
+                console.log(response.error);
+            }
+
+        }else{
+            Materialize.toast({html: "<span>Vous devez être connecter !</span>"});
         }
     }
 
@@ -89,6 +127,20 @@ class Detail extends Component{
                             </div>
                         </div>
                         <hr/>
+                        <br/>
+                        <div className="row">
+                            <h5>Espace commentaire</h5>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s10">
+                                <i className="material-icons prefix">mode_edit</i>
+                                <textarea id="commentaire" className="materialize-textarea" data-length="120" onChange={(e) =>{this.getNewComment(e)}}></textarea>
+                                <label htmlFor="commentaire">Commentaire ...</label>
+                            </div>
+                            <button className="btn waves-effect waves-light" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}>Envoyer
+                                <i className="material-icons right">send</i>
+                            </button>
+                        </div>
                         <br/>
                         <Footer/>
               </div>

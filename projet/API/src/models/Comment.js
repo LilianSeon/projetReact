@@ -4,20 +4,17 @@ import mongoose from 'mongoose';
 const commentSchema = new mongoose.Schema({
 
     date: {
-        type: Date,
-        default: Date.now()
+        type: String
     },
     content: {
         type: String,
         required: true
     },
-    articleId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Article'
+    filmId:{
+        type: mongoose.Schema.Types.ObjectId
     },
     userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: mongoose.Schema.Types.ObjectId
     }
 });
 

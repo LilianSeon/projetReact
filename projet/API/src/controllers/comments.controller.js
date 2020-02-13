@@ -17,10 +17,12 @@ class CommentController{
 
             
             let comment = await Comment.create({
+                date: req.body.date,
                 content: req.body.content,
-                articleId: req.body.articleId,
+                filmId: req.body.filmId,
                 userId: req.body.userId
             });
+            console.log(comment)
 
             body = {
                 comment, 
