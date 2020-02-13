@@ -43,7 +43,7 @@ router.put('/articles/:id', ArticleController.update);
 
 // Comment
 
-router.get('/comments', CommentController.list);
+router.get('/comments/:id', CommentController.list);
 
 router.post('/comments', CommentController.create);
 

@@ -33,7 +33,16 @@ class Detail extends Component{
             console.log(response.error);
         }
 
-        Materialize.CharacterCounter.init(document.getElementById('commentaire'));
+        let responseComment = await CommentService.list(id); // Va chercher les données des commentaires
+        if(responseComment.ok){
+            let data = await responseComment.json();
+            this.setState({comments: data.comments})
+        }else{
+            console.log(response.error);
+        }
+
+        Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur
+        
         
     }
 
@@ -83,10 +92,12 @@ class Detail extends Component{
             }
             console.log(body)
             let response = await CommentService.create(body); // Crée un commentaire
-            console.log(response);
             if(response.ok){
                 let data = await response.json();
-                this.setState({comments: data.comments})
+                this.setState({
+                    ...this.state,
+                    comments: data.comments})
+                    this.componentDidMount();
             }else{
                 console.log(response.error);
             }
@@ -94,6 +105,19 @@ class Detail extends Component{
         }else{
             Materialize.toast({html: "<span>Vous devez être connecter !</span>"});
         }
+    }
+
+    async deleteComment(e, id){
+        e.preventDefault();
+        console.log(id);
+        let response = await CommentService.delete(id); // Supprimer un commentaire
+        console.log(response);
+            if(response.ok){
+                Materialize.toast({html: "<span>Commentaire supprimé</span>"});
+                this.componentDidMount();
+            }else{
+                console.log(response.error);
+            }
     }
 
       render(){
@@ -140,6 +164,29 @@ class Detail extends Component{
                             <button className="btn waves-effect waves-light" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}>Envoyer
                                 <i className="material-icons right">send</i>
                             </button>
+                        </div>
+                        <div className="row">
+                            <ul className="collection">
+                                {
+                                    this.state.comments ?
+                                    this.state.comments.map((comment, c = 0) => {
+                                        c++;
+                                        console.log(comment);
+                                        return(
+                                            <li className="collection-item avatar" key={c}>
+                                                <img title={comment.userId} src="https://previews.123rf.com/images/asmati/asmati1602/asmati160203132/52184894-avatar-de-l-utilisateur-signe-anonimus-flat-ic%C3%B4ne-de-style-sur-fond-transparent.jpg" alt={comment.id} className="circle"/>
+                                                <span className="title">{comment.date}</span>
+                                                <p>{comment.content}</p>
+                                                {
+                                                    localStorage.user_role === "1" ? <a href="" className="secondary-content" onClick={(e) => { this.deleteComment(e, comment._id)}}><i className="material-icons">close</i></a> : null
+                                                }
+                                                
+                                            </li>
+                                        )
+                                    }) : null
+
+                                }
+                            </ul>
                         </div>
                         <br/>
                         <Footer/>

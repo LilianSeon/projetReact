@@ -46,8 +46,10 @@ class CommentController{
             // .find() return tous
             // .findById(id)
             // .findOne({email: 'email@email.fr'})
-            
-            let comments = await Comment.find().populate('userId articleId');
+
+
+            let id = req.params.id;
+            let comments = await Comment.find({filmId: id});
 
             body = {
                 comments, 

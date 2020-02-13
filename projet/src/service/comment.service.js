@@ -2,7 +2,7 @@ const baseUrl = "http://localhost:3001";
 
 class CommentService{
 
-    static async list(){
+    static async list(id){
         let init = {
             method: "GET",
             headers: {
@@ -10,7 +10,7 @@ class CommentService{
                 //"Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         }
-        let call = await fetch(`${baseUrl}/film`, init);
+        let call = await fetch(`${baseUrl}/comments/${id}`, init);
         return call;
 
     }
@@ -60,7 +60,7 @@ class CommentService{
                 //"Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         }
-        let call = await fetch(`${baseUrl}/film/${id}`, init);
+        let call = await fetch(`${baseUrl}/comments/${id}`, init);
         return call;
     }
 
