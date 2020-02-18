@@ -76,6 +76,9 @@ class Detail extends Component{
     }
 
     getNewComment(e){
+        if(e.target.value.length > 120){
+            Materialize.toast({html: "<span><i class='material-icons left lime-text'>warning</i> Votre commentaire est trop long</span>"});
+        }
         this.setState({
             newComment: e.target.value
         });
@@ -83,33 +86,34 @@ class Detail extends Component{
 
     async sendComment(e){
         e.preventDefault();
-        if(localStorage.isAuth === "true"){
-            let body = {
-                content: this.state.newComment,
-                date: new Date().toLocaleDateString('fr-Fr'),
-                filmId: this.state.film._id,
-                userId: JSON.parse(localStorage.idUser)
-            }
-            console.log(body)
-            let response = await CommentService.create(body); // Crée un commentaire
-            if(response.ok){
-                let data = await response.json();
-                this.setState({
-                    ...this.state,
-                    comments: data.comments})
-                    this.componentDidMount();
+        if(localStorage.isAuth === "true"){ // Si l'user est co
+            if(this.state.newComment.length < 120){ // Si le commentaire n'est pas trop long
+                let body = {
+                    content: this.state.newComment,
+                    date: new Date().toLocaleDateString('fr-Fr'),
+                    filmId: this.state.film._id,
+                    userId: JSON.parse(localStorage.idUser)
+                }
+                let response = await CommentService.create(body); // Crée un commentaire
+                if(response.ok){
+                    let data = await response.json();
+                    this.setState({
+                        ...this.state,
+                        comments: data.comments})
+                        this.componentDidMount();
+                }else{
+                    console.log(response.error);
+                }
             }else{
-                console.log(response.error);
+                Materialize.toast({html: "<span><i class='material-icons left lime-text'>warning</i> Votre commentaire est trop long</span>"});
             }
-
         }else{
-            Materialize.toast({html: "<span>Vous devez être connecter !</span>"});
+            Materialize.toast({html: "<span>Vous devez être <a href='/connexion'>connecté</a> !</span>"});
         }
     }
 
     async deleteComment(e, id){
         e.preventDefault();
-        console.log(id);
         let response = await CommentService.delete(id); // Supprimer un commentaire
         console.log(response);
             if(response.ok){
@@ -155,33 +159,25 @@ class Detail extends Component{
                         <div className="row">
                             <h5>Espace commentaire</h5>
                         </div>
-                        {
-                            localStorage.isAuth ?
-                            
-                                <div className="row">
-                                    <div className="input-field col s10">
-                                        <i className="material-icons prefix">mode_edit</i>
-                                        <textarea id="commentaire" className="materialize-textarea" data-length="120" onChange={(e) =>{this.getNewComment(e)}}></textarea>
-                                        <label htmlFor="commentaire">Commentaire ...</label>
-                                    </div>
-                                    <button className="btn waves-effect waves-light" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}>Envoyer
-                                        <i className="material-icons right">send</i>
-                                    </button>
-                                </div>
-                             : null
-                        }
+                        <div className="row">
+                            <div className="input-field col s10">
+                                <i className="material-icons prefix">mode_edit</i>
+                                <textarea id="commentaire" className="materialize-textarea" data-length="120" onChange={(e) =>{this.getNewComment(e)}}></textarea>
+                                <label htmlFor="commentaire">Commentaire ...</label>
+                            </div>
+                            <button className="btn-floating waves-light btn-large active" type="submit" name="action" onClick={(e) => {this.sendComment(e)}}><i className="material-icons">send</i></button>
+                        </div>
                         <div className="row">
                             <ul className="collection">
                                 {
                                     this.state.comments ?
                                     this.state.comments.map((comment, c = 0) => {
                                         c++;
-                                        console.log(comment);
                                         return(
-                                            <li className="collection-item avatar" key={c}>
+                                            <li className="collection-item avatar z-depth-2" key={c}>
                                                 <img title={comment.userId} src="https://previews.123rf.com/images/asmati/asmati1602/asmati160203132/52184894-avatar-de-l-utilisateur-signe-anonimus-flat-ic%C3%B4ne-de-style-sur-fond-transparent.jpg" alt={comment.id} className="circle"/>
                                                 <span className="title">{comment.date}</span>
-                                                <p>{comment.content}</p>
+                                                <p className="truncate">{comment.content}</p>
                                                 {
                                                     localStorage.user_role === "1" ? <a href="" className="secondary-content" onClick={(e) => { this.deleteComment(e, comment._id)}}><i className="material-icons">close</i></a> : null
                                                 }
