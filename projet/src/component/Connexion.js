@@ -86,18 +86,18 @@ class Connexion extends Component{
                 {this.redirect()}
                 <br/> <br/> <br/>
                 <div className="row m3">
-                    <div className="col s3"></div>
-                    <form className="col s6 z-depth-3" style={{paddingLeft:'45px'}}>
+                    <div className="col s0 m3"></div>
+                    <form className="col s12 m6 z-depth-3" style={{paddingLeft:'45px'}}>
                     <h4 className="center" style={{paddingRight:'45px'}}>Connexion</h4>
                     <div className="row">
-                        <div className="input-field col s10">
+                        <div className="input-field col s11 m10">
                             <i className="material-icons prefix">account_circle</i>
                             <input id="icon_prefix" type="email" className="validate" onChange={(e) => {this.getEmail(e)}}/>
                             <label htmlFor="icon_prefix">Email</label>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="input-field col s10">
+                        <div className="input-field col s11 m10">
                             <i className="material-icons prefix">lock</i>
                             <input id="icon_telephone" type="password" className="validate" onChange={(e) => {this.getPassword(e)}}/>
                             <label htmlFor="icon_telephone">Mot de passe</label>
@@ -112,7 +112,7 @@ class Connexion extends Component{
                         </div>
                     </div>
                     </form>
-                    <div className="col s3"></div>
+                    <div className="col s0 m3"></div>
                 </div>
                 <br/>
                 <br/>

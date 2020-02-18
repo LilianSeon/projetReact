@@ -131,9 +131,9 @@ class Detail extends Component{
                         <div className="container">
                         <br/>
                         <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
-                        <a className="white-text waves-effect waves-light btn right btn-floating z-depth-2" href={this.state.url} data-action="share/whatsapp/share"><img className="left" src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" style={{width: '30px', height: '30px', marginTop: '4px'}}/></a>
+                        <a className="white-text waves-effect waves-light btn right btn-floating z-depth-2" href={this.state.url} data-action="share/whatsapp/share"><img className="left" src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" style={{width: '30px', height: '30px', marginTop: '4px', marginLeft: '5px'}}/></a>
                             <div className="row">
-                                <div className="col s6">
+                                <div className="col m6">
                                     <br/>
                                     <img src={this.state.film && this.state.film.img} alt=""/>
                                     <br/>
@@ -141,7 +141,7 @@ class Detail extends Component{
                                         this.star()
                                     }
                                 </div>
-                                <div className="col s6">
+                                <div className="col m6">
                                     <h3 className="center">{this.state.film && this.state.film.title}</h3><br/>
                                     <blockquote><p><span className="grey-text text-darken-1">Genre :</span> {this.state.film && this.state.film.genre}</p></blockquote>
                                     <blockquote><p><span className="grey-text text-darken-1">Date de sortie :</span> {this.state.film && this.state.film.date}</p></blockquote>

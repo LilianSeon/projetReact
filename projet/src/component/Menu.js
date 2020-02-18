@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../img/logo2.png';
+import Logo from '../img/logo3.png';
 import Materialize from "materialize-css";
 
 class Menu extends Component{
@@ -64,7 +64,7 @@ class Menu extends Component{
       return(
       <nav>
           <div className="nav-wrapper teal darken-1 z-depth-1">
-            <img src={Logo} width="65" height="64" alt="" className="left"/>
+          <Link to={'/'}><img src={Logo} width="65" height="64" alt="" className="left tooltipped logo" data-position="bottom" data-tooltip="Popcorn"/></Link>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li className="tooltipped" data-position="bottom" data-tooltip="Home"><Link to={'/'}><i className="material-icons">home</i></Link></li>
               <li className="tooltipped" data-position="bottom" data-tooltip="Connexion"><Link to={'/connexion'}><i className="material-icons">person</i></Link></li>

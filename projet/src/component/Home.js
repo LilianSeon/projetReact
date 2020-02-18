@@ -63,7 +63,7 @@ class Home extends Component{
                 <Menu/>
                 <div className="row">
                     <div className="col s3"></div>
-                    <div className="col s6 search">
+                    <div className="col s12 m6 search">
                         <div className="row">
                             <div className="input-field col s12">
                                 <i className="material-icons prefix">search</i>

@@ -7,3 +7,12 @@
 #close:hover{
   cursor: pointer;
 }
+
+.logo{
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.logo:hover{
+    transform: rotate(360deg);
+    transition: all 0.5s ease-in-out 0s;
+}
