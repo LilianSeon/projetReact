@@ -18,7 +18,8 @@ class Detail extends Component{
                 note: 0
             },
             newComment: '',
-            comments: []
+            comments: [],
+            url: ''
         };
     }
 
@@ -41,9 +42,8 @@ class Detail extends Component{
             console.log(response.error);
         }
 
-        Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur
-        
-        
+        Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur de caractère
+        this.setState({url: 'whatsapp://send?text=<a href="http://google.com">'+window.location.href+'</a>'});
     }
 
     async changeRating( newRating, body) {
@@ -131,6 +131,7 @@ class Detail extends Component{
                         <div className="container">
                         <br/>
                         <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
+                        <a className="white-text waves-effect waves-light btn right btn-floating z-depth-2" href={this.state.url} data-action="share/whatsapp/share"><img classname="left" src="https://img.icons8.com/color/48/000000/whatsapp.png" style={{width: '30px', height: '30px', marginTop: '4px'}}/></a>
                             <div className="row">
                                 <div className="col s6">
                                     <br/>

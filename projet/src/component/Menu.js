@@ -32,7 +32,7 @@ class Menu extends Component{
 
       return(
         <li className="tooltipped" data-position="bottom" data-tooltip="Admin"><Link to='/adminFilm'>
-          <i className="material-icons">build</i></Link>
+          <i className="material-icons">settings_applications</i></Link>
         </li>
       )
     }
