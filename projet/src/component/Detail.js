@@ -131,7 +131,7 @@ class Detail extends Component{
                         <div className="container">
                         <br/>
                         <Link to={'/'} className="waves-effect waves-light btn"><i className="material-icons left">keyboard_arrow_left</i>Retour</Link>
-                        <a className="white-text waves-effect waves-light btn right btn-floating z-depth-2" href={this.state.url} data-action="share/whatsapp/share"><img classname="left" src="https://img.icons8.com/color/48/000000/whatsapp.png" style={{width: '30px', height: '30px', marginTop: '4px'}}/></a>
+                        <a className="white-text waves-effect waves-light btn right btn-floating z-depth-2" href={this.state.url} data-action="share/whatsapp/share"><img className="left" src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" style={{width: '30px', height: '30px', marginTop: '4px'}}/></a>
                             <div className="row">
                                 <div className="col s6">
                                     <br/>
@@ -180,7 +180,7 @@ class Detail extends Component{
                                                 <span className="title">{comment.date}</span>
                                                 <p className="truncate">{comment.content}</p>
                                                 {
-                                                    localStorage.user_role === "1" ? <a href="" className="secondary-content" onClick={(e) => { this.deleteComment(e, comment._id)}}><i className="material-icons">close</i></a> : null
+                                                    localStorage.user_role === "1" ? <i id="close" className="secondary-content material-icons" onClick={(e) => { this.deleteComment(e, comment._id)}}>close</i> : null
                                                 }
                                                 
                                             </li>
