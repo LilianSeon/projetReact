@@ -9,7 +9,7 @@
 }
 
 .logo{
-  transition: all 0.3s ease-in-out 0s;
+  transition: all 0.45s ease-in-out 0.2s;
 }
 
 .logo:hover{

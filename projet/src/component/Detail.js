@@ -100,6 +100,8 @@ class Detail extends Component{
                     this.setState({
                         ...this.state,
                         comments: data.comments})
+                        document.getElementById('commentaire').value = '';
+                        document.getElementById('commentaire').blur();
                         this.componentDidMount();
                 }else{
                     console.log(response.error);
