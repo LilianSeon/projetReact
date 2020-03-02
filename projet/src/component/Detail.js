@@ -43,7 +43,7 @@ class Detail extends Component{
         }
 
         Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur de caractère
-        this.setState({url: 'whatsapp://send?text=<a href="http://google.com">'+window.location.href+'</a>'});
+        this.setState({url: 'whatsapp://send?text='+window.location.href+''});
     }
 
     async changeRating( newRating, body) {
