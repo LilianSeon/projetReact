@@ -42,11 +42,11 @@ class Detail extends Component{
             console.log(response.error);
         }
 
-        Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur de caractère
+        Materialize.CharacterCounter.init(document.getElementById('commentaire')); // Compteur de caractère pour le commentaire
         this.setState({url: 'whatsapp://send?text='+window.location.href+''});
     }
 
-    async changeRating( newRating, body) {
+    async changeRating( newRating, body) { // Change la note du film (étoiles)
         this.setState( prevState => ({
           film: {
               ...prevState.film, // Récup le state existant
@@ -59,7 +59,7 @@ class Detail extends Component{
         }
     }
 
-    star(){
+    star(){ // Affichage des étoiles de notation
         if(localStorage.isAuth === "true"){
             return(
                 <StarRatings
@@ -75,7 +75,7 @@ class Detail extends Component{
         }
     }
 
-    getNewComment(e){
+    getNewComment(e){ // Update le state si le commentaire n'est pas trop long
         if(e.target.value.length > 120){
             Materialize.toast({html: "<span><i class='material-icons left lime-text'>warning</i> Votre commentaire est trop long</span>"});
         }
@@ -84,7 +84,7 @@ class Detail extends Component{
         });
     }
 
-    async sendComment(e){
+    async sendComment(e){ // Crée un nouveau commentaire
         e.preventDefault();
         if(localStorage.isAuth === "true"){ // Si l'user est co
             if(this.state.newComment.length < 120){ // Si le commentaire n'est pas trop long
@@ -114,7 +114,7 @@ class Detail extends Component{
         }
     }
 
-    async deleteComment(e, id){
+    async deleteComment(e, id){ // Efface le commentaire
         e.preventDefault();
         let response = await CommentService.delete(id); // Supprimer un commentaire
         console.log(response);

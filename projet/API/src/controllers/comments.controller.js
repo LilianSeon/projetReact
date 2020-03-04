@@ -5,7 +5,7 @@ import Comment from "../models/Comment";
 class CommentController{
 
     /**
-     * Create User into Database
+     * Create COmmentaire into Database
      * @param {Request} req 
      * @param {Response} res
      */
